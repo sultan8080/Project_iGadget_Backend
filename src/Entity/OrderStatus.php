@@ -11,14 +11,14 @@ class OrderStatus
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $ord_status_id = null;
 
     #[ORM\Column(length: 100)]
     private ?string $typeStatus = null;
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->ord_status_id;
     }
 
     public function getTypeStatus(): ?string
