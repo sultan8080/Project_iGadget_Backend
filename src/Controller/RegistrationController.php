@@ -3,17 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\Users;
-use App\Form\RegistrationFormType;
 use App\Security\EmailVerifier;
+use App\Form\RegistrationFormType;
+use Symfony\Component\Mime\Address;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mime\Address;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
@@ -33,6 +34,25 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            //upload des fichiers
+            $photoProfile = $form->get('user_photo')->getData();
+            //Si fichier uplaoder
+            if ($photoProfile) {
+                $originalphotoFilename = pathinfo($photoProfile->getClientOriginalName(), PATHINFO_FILENAME);
+                // this is needed to safely include the file name as part of the URL 
+                // $safePhotoFilename = transliterator_transliterate('Any Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()', $originalphotoFilename);  
+                $newPhotoFilename = $originalphotoFilename . '-' . uniqid() . '.' . $photoProfile->guessExtension();
+                // Move the file to the directory where brochures are stored  
+                try {
+                    $photoProfile->move(
+                        $this->getParameter('profile_photos'),
+                        $newPhotoFilename
+                    );
+                } catch (FileException $e) {
+                    // ... handle exception if something happens during file uplo ad
+                }
+                $user->setUserPhoto($newPhotoFilename);
+            }
             // encode the plain password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
