@@ -11,7 +11,7 @@ class Reply
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $reply_id = null;
 
     #[ORM\Column(length: 100)]
     private ?string $subject = null;
@@ -24,7 +24,7 @@ class Reply
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this->reply_id;
     }
 
     public function getSubject(): ?string
