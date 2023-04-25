@@ -20,4 +20,4 @@
 ###< symfony/phpunit-bridge ###
 
 # Ignore Doctrine migration files
-/src/Migrations/*
+/migrations/*
