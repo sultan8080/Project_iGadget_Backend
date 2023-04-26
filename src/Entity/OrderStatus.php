@@ -16,9 +16,6 @@ class OrderStatus
     #[ORM\Column(length: 100)]
     private ?string $typeStatus = null;
 
-    #[ORM\OneToOne(mappedBy: 'orderStatus', cascade: ['persist', 'remove'])]
-    private ?Order $orders = null;
-
     public function getOrd_status_id(): ?int
     {
         return $this->ord_status_id;
