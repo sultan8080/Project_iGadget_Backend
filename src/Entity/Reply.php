@@ -22,7 +22,7 @@ class Reply
     #[ORM\Column]
     private ?\DateTimeImmutable $replyDate = null;
 
-    public function getId(): ?int
+    public function getReply_id(): ?int
     {
         return $this->reply_id;
     }
