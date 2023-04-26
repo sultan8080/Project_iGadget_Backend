@@ -13,22 +13,22 @@ class OrderStatus
     #[ORM\Column]
     private ?int $ord_status_id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $OrderStatus = null;
+    #[ORM\Column(length: 100)]
+    private ?string $typeStatus = null;
 
     public function getId(): ?int
     {
         return $this->ord_status_id;
     }
 
-    public function getOrderStatus(): ?string
+    public function getTypeStatus(): ?string
     {
-        return $this->OrderStatus;
+        return $this->typeStatus;
     }
 
-    public function setOrderStatus(string $OrderStatus): self
+    public function setTypeStatus(string $typeStatus): self
     {
-        $this->OrderStatus = $OrderStatus;
+        $this->typeStatus = $typeStatus;
 
         return $this;
     }
