@@ -36,20 +36,4 @@ class OrderStatus
         return $this;
     }
 
-    public function getOrders(): ?Order
-    {
-        return $this->orders;
-    }
-
-    public function setOrders(Order $orders): self
-    {
-        // set the owning side of the relation if necessary
-        if ($orders->getOrderStatus() !== $this) {
-            $orders->setOrderStatus($this);
-        }
-
-        $this->orders = $orders;
-
-        return $this;
-    }
 }
