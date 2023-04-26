@@ -20,7 +20,7 @@ class Orders
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $approvalDate = null;
 
-    public function getId(): ?int
+    public function getOrder_id(): ?int
     {
         return $this->order_id;
     }
