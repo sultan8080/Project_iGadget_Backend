@@ -19,7 +19,7 @@ class OrderStatus
     #[ORM\OneToOne(mappedBy: 'orderStatus', cascade: ['persist', 'remove'])]
     private ?Order $orders = null;
 
-    public function getId(): ?int
+    public function getOrd_status_id(): ?int
     {
         return $this->ord_status_id;
     }
