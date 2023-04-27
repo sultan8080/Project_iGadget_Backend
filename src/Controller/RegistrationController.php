@@ -39,6 +39,8 @@ class RegistrationController extends AbstractController
                 )
             );
 
+            $user->setRoles(array('ROLE_USER'));
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -53,7 +55,7 @@ class RegistrationController extends AbstractController
                     ->htmlTemplate('registration/confirmation_email.html.twig')
             );
             // do anything else you need here, like send an email
-
+            $this->addFlash('success', 'Votre compte à bien été crée, Veuillez vérifier vos emails pour l\'activer.');
             return $this->redirectToRoute('app_login');
         }
 
