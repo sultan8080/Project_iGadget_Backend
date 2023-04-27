@@ -19,7 +19,7 @@ class OrderDetails
     #[ORM\Column]
     private ?int $price = null;
 
-    public function getId(): ?int
+    public function getOrd_details_id(): ?int
     {
         return $this->ord_details_id;
     }

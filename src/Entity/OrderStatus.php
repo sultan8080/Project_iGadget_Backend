@@ -16,7 +16,7 @@ class OrderStatus
     #[ORM\Column(length: 100)]
     private ?string $typeStatus = null;
 
-    public function getId(): ?int
+    public function getOrd_status_id(): ?int
     {
         return $this->ord_status_id;
     }
@@ -32,4 +32,5 @@ class OrderStatus
 
         return $this;
     }
+
 }
