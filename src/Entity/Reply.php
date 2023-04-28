@@ -22,6 +22,9 @@ class Reply
     #[ORM\Column]
     private ?\DateTimeImmutable $replyDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reply')]
+    private ?Users $users = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Reply
     public function setReplyDate(\DateTimeImmutable $replyDate): self
     {
         $this->replyDate = $replyDate;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
 
         return $this;
     }

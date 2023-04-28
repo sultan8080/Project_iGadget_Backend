@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,17 @@ class Products
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Users $users = null;
+
+    #[ORM\ManyToMany(targetEntity: ProductTags::class, inversedBy: 'products')]
+    private Collection $producttags;
+
+    public function __construct()
+    {
+        $this->producttags = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +148,42 @@ class Products
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductTags>
+     */
+    public function getProducttags(): Collection
+    {
+        return $this->producttags;
+    }
+
+    public function addProducttag(ProductTags $producttag): self
+    {
+        if (!$this->producttags->contains($producttag)) {
+            $this->producttags->add($producttag);
+        }
+
+        return $this;
+    }
+
+    public function removeProducttag(ProductTags $producttag): self
+    {
+        $this->producttags->removeElement($producttag);
 
         return $this;
     }

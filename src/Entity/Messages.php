@@ -22,6 +22,9 @@ class Messages
     #[ORM\Column]
     private ?\DateTimeImmutable $messagecreatedate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    private ?Users $users = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Messages
     public function setMessagecreatedate(\DateTimeImmutable $messagecreatedate): self
     {
         $this->messagecreatedate = $messagecreatedate;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
 
         return $this;
     }
