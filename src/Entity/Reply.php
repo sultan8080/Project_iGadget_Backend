@@ -11,7 +11,7 @@ class Reply
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $reply_id = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 100)]
     private ?string $subject = null;
@@ -22,9 +22,9 @@ class Reply
     #[ORM\Column]
     private ?\DateTimeImmutable $replyDate = null;
 
-    public function getReply_id(): ?int
+    public function getId(): ?int
     {
-        return $this->reply_id;
+        return $this->id;
     }
 
     public function getSubject(): ?string

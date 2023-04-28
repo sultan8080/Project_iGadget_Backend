@@ -11,14 +11,14 @@ class OrderReturns
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $ord_returns_id = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $returncreatedate = null;
 
     public function getId(): ?int
     {
-        return $this->ord_returns_id;
+        return $this->id;
     }
 
     public function getReturncreatedate(): ?\DateTimeImmutable

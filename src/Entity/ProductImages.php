@@ -11,14 +11,14 @@ class ProductImages
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $image_id = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image_name = null;
 
     public function getId(): ?int
     {
-        return $this->image_id;
+        return $this->id;
     }
 
     public function getImageName(): ?string

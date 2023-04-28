@@ -11,7 +11,7 @@ class Messages
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idMessage = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $subjet = null;
@@ -22,9 +22,9 @@ class Messages
     #[ORM\Column]
     private ?\DateTimeImmutable $messagecreatedate = null;
 
-    public function getIdMessage(): ?int
+    public function getId(): ?int
     {
-        return $this->idMessage;
+        return $this->id;
     }
 
     public function getSubjet(): ?string

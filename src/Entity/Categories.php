@@ -11,7 +11,7 @@ class Categories
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $category_id = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     private ?string $name = null;
@@ -24,7 +24,7 @@ class Categories
 
     public function getId(): ?int
     {
-        return $this->category_id;
+        return $this->id;
     }
 
     public function getName(): ?string
