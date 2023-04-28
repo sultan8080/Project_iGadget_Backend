@@ -12,7 +12,7 @@ class Products
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $product_id = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
@@ -38,9 +38,9 @@ class Products
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
-    public function getProduct_id(): ?int
+    public function getId(): ?int
     {
-        return $this->product_id;
+        return $this->id;
     }
 
     public function getReference(): ?string

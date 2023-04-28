@@ -19,7 +19,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $user_id = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
@@ -69,9 +69,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->createdAt = new DateTime('now');
     }
 
-    public function getUser_id(): ?int
+    public function getId(): ?int
     {
-        return $this->user_id;
+        return $this->id;
     }
 
     public function getEmail(): ?string

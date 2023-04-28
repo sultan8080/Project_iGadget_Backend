@@ -11,7 +11,7 @@ class Reviews
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id_review = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $note = null;
@@ -25,9 +25,9 @@ class Reviews
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedat = null;
 
-    public function getIdReview(): ?int
+    public function getId(): ?int
     {
-        return $this->id_review;
+        return $this->id;
     }
 
     public function getNote(): ?string
