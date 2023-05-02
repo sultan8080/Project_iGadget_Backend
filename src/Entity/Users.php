@@ -78,6 +78,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Orders::class)]
     private Collection $orders;
+
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Reviews::class)]
+    private Collection $reviews;
     public function __construct()
     {
         $this->createdAt = new DateTime('now');
@@ -85,6 +88,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         $this->reply = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -392,6 +396,36 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($order->getUsers() === $this) {
                 $order->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reviews>
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Reviews $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews->add($review);
+            $review->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Reviews $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getUsers() === $this) {
+                $review->setUsers(null);
             }
         }
 
