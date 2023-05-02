@@ -25,6 +25,10 @@ class Reviews
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedat = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $users = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +78,18 @@ class Reviews
     public function setUpdatedat(\DateTimeImmutable $updatedat): self
     {
         $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
 
         return $this;
     }

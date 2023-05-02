@@ -19,6 +19,13 @@ class OrderDetails
     #[ORM\Column]
     private ?int $price = null;
 
+    #[ORM\ManyToOne(inversedBy: 'orderDetails')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Orders $orders = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orderDetails')]
+    private ?OrderReturns $orderReturns = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +51,30 @@ class OrderDetails
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getOrders(): ?Orders
+    {
+        return $this->orders;
+    }
+
+    public function setOrders(?Orders $orders): self
+    {
+        $this->orders = $orders;
+
+        return $this;
+    }
+
+    public function getOrderReturns(): ?OrderReturns
+    {
+        return $this->orderReturns;
+    }
+
+    public function setOrderReturns(?OrderReturns $orderReturns): self
+    {
+        $this->orderReturns = $orderReturns;
 
         return $this;
     }

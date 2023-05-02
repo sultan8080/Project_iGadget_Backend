@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProductsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -37,6 +39,25 @@ class Products
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    private ?Users $users = null;
+
+    #[ORM\ManyToMany(targetEntity: ProductTags::class, inversedBy: 'products')]
+    private Collection $producttags;
+
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true)]
+    private Collection $productimages;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Categories $categories = null;
+
+    public function __construct()
+    {
+        $this->producttags = new ArrayCollection();
+        $this->productimages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -135,6 +156,84 @@ class Products
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductTags>
+     */
+    public function getProducttags(): Collection
+    {
+        return $this->producttags;
+    }
+
+    public function addProducttag(ProductTags $producttag): self
+    {
+        if (!$this->producttags->contains($producttag)) {
+            $this->producttags->add($producttag);
+        }
+
+        return $this;
+    }
+
+    public function removeProducttag(ProductTags $producttag): self
+    {
+        $this->producttags->removeElement($producttag);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProductImages>
+     */
+    public function getProductimages(): Collection
+    {
+        return $this->productimages;
+    }
+
+    public function addProductimage(ProductImages $productimage): self
+    {
+        if (!$this->productimages->contains($productimage)) {
+            $this->productimages->add($productimage);
+            $productimage->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProductimage(ProductImages $productimage): self
+    {
+        if ($this->productimages->removeElement($productimage)) {
+            // set the owning side to null (unless already changed)
+            if ($productimage->getProducts() === $this) {
+                $productimage->setProducts(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCategories(): ?Categories
+    {
+        return $this->categories;
+    }
+
+    public function setCategories(?Categories $categories): self
+    {
+        $this->categories = $categories;
 
         return $this;
     }
