@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MessagesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MessagesRepository::class)]
@@ -24,6 +26,14 @@ class Messages
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
     private ?Users $users = null;
+
+    #[ORM\OneToMany(mappedBy: 'messages', targetEntity: Reply::class)]
+    private Collection $reply;
+
+    public function __construct()
+    {
+        $this->reply = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +84,36 @@ class Messages
     public function setUsers(?Users $users): self
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Reply>
+     */
+    public function getReply(): Collection
+    {
+        return $this->reply;
+    }
+
+    public function addReply(Reply $reply): self
+    {
+        if (!$this->reply->contains($reply)) {
+            $this->reply->add($reply);
+            $reply->setMessages($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReply(Reply $reply): self
+    {
+        if ($this->reply->removeElement($reply)) {
+            // set the owning side to null (unless already changed)
+            if ($reply->getMessages() === $this) {
+                $reply->setMessages(null);
+            }
+        }
 
         return $this;
     }

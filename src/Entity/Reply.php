@@ -25,6 +25,9 @@ class Reply
     #[ORM\ManyToOne(inversedBy: 'reply')]
     private ?Users $users = null;
 
+    #[ORM\ManyToOne(inversedBy: 'reply')]
+    private ?Messages $messages = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -74,6 +77,18 @@ class Reply
     public function setUsers(?Users $users): self
     {
         $this->users = $users;
+
+        return $this;
+    }
+
+    public function getMessages(): ?Messages
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(?Messages $messages): self
+    {
+        $this->messages = $messages;
 
         return $this;
     }
