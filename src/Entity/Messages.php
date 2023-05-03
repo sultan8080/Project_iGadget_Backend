@@ -6,8 +6,10 @@ use App\Repository\MessagesRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: MessagesRepository::class)]
+#[ApiResource]
 class Messages
 {
     #[ORM\Id]
