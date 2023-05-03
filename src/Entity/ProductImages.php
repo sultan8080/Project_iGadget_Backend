@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\ProductImagesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ProductImagesRepository::class)]
+#[ApiResource]
 class ProductImages
 {
     #[ORM\Id]

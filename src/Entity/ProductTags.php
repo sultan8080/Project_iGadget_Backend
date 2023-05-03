@@ -6,8 +6,10 @@ use App\Repository\ProductTagsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: ProductTagsRepository::class)]
+#[ApiResource]
 class ProductTags
 {
     #[ORM\Id]
