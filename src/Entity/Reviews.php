@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ReviewsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReviewsRepository::class)]
+#[ApiResource]
 class Reviews
 {
     #[ORM\Id]
