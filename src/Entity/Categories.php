@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: CategoriesRepository::class)]
 #[ApiResource]
@@ -31,6 +32,7 @@ class Categories
 
     public function __construct()
     {
+        $this->createdAt = new DateTimeImmutable('now');
         $this->products = new ArrayCollection();
     }
 
