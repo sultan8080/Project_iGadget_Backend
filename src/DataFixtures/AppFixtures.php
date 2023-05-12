@@ -34,8 +34,6 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create();
 
-
-
         $listAdmin = [];
         for ($i = 1; $i < 6; $i++) {
             $admin = new Users();
@@ -81,7 +79,8 @@ class AppFixtures extends Fixture
             $listCategories[] = $category;
         }
         $listProducts = [];
-        for ($i = 0; $i < 20; $i++) {
+     
+        for ($i = 0; $i < 10; $i++) {
             $product = new Products();
             $product->setReference($faker->sentence(3));
             $product->setName($faker->words(2, true));
@@ -97,8 +96,9 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 10; $i++) {
             $productTags = new ProductTags();
-            $productTags->setLabel($faker->sentence(5));
-            $manager->persist($productTags);
+            $productTags->setLabel($faker->words(5, true));
+            $productTags->addProduct($listProducts[array_rand($listProducts)]);
+            $manager->persist($productTags);       
         }
 
         for ($i = 1; $i < 15; $i++) {
@@ -121,7 +121,6 @@ class AppFixtures extends Fixture
         for ($i = 0; $i < 10; $i++) {
             $order = new Orders();
             $order->setOrderDate(new DateTimeImmutable());
-            $order->setApprovalDate(new DateTimeImmutable());
             $order->setOrderStatus($listOrderStatuType[array_rand($listOrderStatuType)]);
             $order->setUsers($listUsers[array_rand($listUsers)]);
             $manager->persist($order);
@@ -164,7 +163,6 @@ class AppFixtures extends Fixture
             $review->setNote($faker->randomDigit());
             $review->setComments($faker->text(80));
             $review->setCreatedat(new DateTimeImmutable());
-            $review->setUpdatedat(new DateTimeImmutable());
             $review->setUsers($listUsers[array_rand($listUsers)]);
             $manager->persist($review);
         }
