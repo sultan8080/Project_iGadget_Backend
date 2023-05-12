@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ReviewsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReviewsRepository::class)]
+#[ApiResource]
 class Reviews
 {
     #[ORM\Id]
@@ -24,6 +25,10 @@ class Reviews
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedat = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reviews')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Users $users = null;
 
     public function getId(): ?int
     {
@@ -74,6 +79,18 @@ class Reviews
     public function setUpdatedat(\DateTimeImmutable $updatedat): self
     {
         $this->updatedat = $updatedat;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
 
         return $this;
     }

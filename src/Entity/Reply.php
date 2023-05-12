@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Entity;
-
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ReplyRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReplyRepository::class)]
+#[ApiResource]
 class Reply
 {
     #[ORM\Id]
@@ -21,6 +22,12 @@ class Reply
 
     #[ORM\Column]
     private ?\DateTimeImmutable $replyDate = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reply')]
+    private ?Users $users = null;
+
+    #[ORM\ManyToOne(inversedBy: 'reply')]
+    private ?Messages $messages = null;
 
     public function getId(): ?int
     {
@@ -59,6 +66,30 @@ class Reply
     public function setReplyDate(\DateTimeImmutable $replyDate): self
     {
         $this->replyDate = $replyDate;
+
+        return $this;
+    }
+
+    public function getUsers(): ?Users
+    {
+        return $this->users;
+    }
+
+    public function setUsers(?Users $users): self
+    {
+        $this->users = $users;
+
+        return $this;
+    }
+
+    public function getMessages(): ?Messages
+    {
+        return $this->messages;
+    }
+
+    public function setMessages(?Messages $messages): self
+    {
+        $this->messages = $messages;
 
         return $this;
     }

@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\OrderDetailsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiResource;
 
 #[ORM\Entity(repositoryClass: OrderDetailsRepository::class)]
+#[ApiResource]
 class OrderDetails
 {
     #[ORM\Id]
@@ -18,6 +20,13 @@ class OrderDetails
 
     #[ORM\Column]
     private ?int $price = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orderDetails')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Orders $orders = null;
+
+    #[ORM\ManyToOne(inversedBy: 'orderDetails')]
+    private ?OrderReturns $orderReturns = null;
 
     public function getId(): ?int
     {
@@ -44,6 +53,30 @@ class OrderDetails
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getOrders(): ?Orders
+    {
+        return $this->orders;
+    }
+
+    public function setOrders(?Orders $orders): self
+    {
+        $this->orders = $orders;
+
+        return $this;
+    }
+
+    public function getOrderReturns(): ?OrderReturns
+    {
+        return $this->orderReturns;
+    }
+
+    public function setOrderReturns(?OrderReturns $orderReturns): self
+    {
+        $this->orderReturns = $orderReturns;
 
         return $this;
     }
