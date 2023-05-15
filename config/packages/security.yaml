@@ -48,16 +48,21 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/users, roles: PUBLIC_ACCESS , methods: [POST] }
-        - { path: ^/api/categories,  roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/products,  roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/producttags,  roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/productimages,  roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/orders,  roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/api/orderdetails,  roles: IS_AUTHENTICATED_FULLY }
-
-        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
+        - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE, PATCH] }
+        # - { path: ^/api/categories,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/products,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/product_tags,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/product_images,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/orders,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/order_details,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/messages,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/order_returns,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/order_statuses,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/replies,  roles: IS_AUTHENTICATED_FULLY }
+        # - { path: ^/api/reviews,  roles: IS_AUTHENTICATED_FULLY }
+  
         # - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE, PATCH] }
 
         
