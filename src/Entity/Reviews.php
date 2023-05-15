@@ -23,7 +23,7 @@ class Reviews
     #[ORM\Column]
     private ?\DateTimeImmutable $createdat = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedat = null;
 
     #[ORM\ManyToOne(inversedBy: 'reviews')]

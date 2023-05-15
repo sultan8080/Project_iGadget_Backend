@@ -21,7 +21,8 @@ class Orders
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $orderDate = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+  
+    #[ORM\Column(nullable: true)]
     private ?\DateTimeInterface $approvalDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
