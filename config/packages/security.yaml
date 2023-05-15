@@ -49,7 +49,14 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/users, roles: PUBLIC_ACCESS }
+        - { path: ^/api/users, roles: PUBLIC_ACCESS , methods: [POST] }
+        - { path: ^/api/categories,  roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/products,  roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/producttags,  roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/productimages,  roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/orders,  roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/orderdetails,  roles: IS_AUTHENTICATED_FULLY }
+
         - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/api/users, roles: IS_AUTHENTICATED_FULLY, methods: [GET, PUT, DELETE, PATCH] }
 
