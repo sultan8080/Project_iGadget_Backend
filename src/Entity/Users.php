@@ -13,11 +13,12 @@ use App\Repository\UsersRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'Il existe déjà un compte avec cet email')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-#[ApiResource]
+#[ApiResource(normalizationContext: ['groups' => ['OUI']])]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -26,6 +27,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups('OUI')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -38,35 +40,44 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('OUI')]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('OUI')]
     private ?string $lastname = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('OUI')]
     private ?string $address = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('OUI')]
     private ?string $codepostal = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $user_photo = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('OUI')]
     private ?string $phone = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('OUI')]
     private ?string $city = null;
 
 
 
     #[ORM\Column(nullable: true)]
+    #[Groups('OUI')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups('OUI')]
     private $isVerified = false;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('OUI')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Products::class)]
