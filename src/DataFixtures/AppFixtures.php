@@ -35,7 +35,7 @@ class AppFixtures extends Fixture
         $faker = Factory::create();
 
         $listAdmin = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i < 2; $i++) {
             $admin = new Users();
             $admin->setFirstname($faker->firstName());
             $admin->setLastname($faker->lastName());
@@ -53,7 +53,7 @@ class AppFixtures extends Fixture
         }
 
         $listUsers = [];
-        for ($i = 1; $i < 6; $i++) {
+        for ($i = 1; $i < 2; $i++) {
             $user = new Users();
             $user->setFirstname($faker->firstName());
             $user->setLastname($faker->lastName());
@@ -79,7 +79,7 @@ class AppFixtures extends Fixture
             $listCategories[] = $category;
         }
         $listProducts = [];
-     
+
         for ($i = 0; $i < 10; $i++) {
             $product = new Products();
             $product->setReference($faker->sentence(3));
@@ -98,7 +98,7 @@ class AppFixtures extends Fixture
             $productTags = new ProductTags();
             $productTags->setLabel($faker->words(5, true));
             $productTags->addProduct($listProducts[array_rand($listProducts)]);
-            $manager->persist($productTags);       
+            $manager->persist($productTags);
         }
 
         for ($i = 1; $i < 15; $i++) {
