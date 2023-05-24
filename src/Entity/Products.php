@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 #[ApiResource]
+#[ApiFilter('partial', properties: ['name' => 'partial'])]
 class Products
 {
     #[ORM\Id]
