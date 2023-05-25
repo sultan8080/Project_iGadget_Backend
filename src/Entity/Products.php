@@ -9,12 +9,21 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
-#[ApiResource]
-#[ApiFilter('partial', properties: ['name' => 'partial'])]
+#[
+    ApiResource, 
+    ApiFilter(
+        SearchFilter::class, 
+        properties:[
+            'name' => 'partial'
+        ]
+    )
+]
+
 class Products
 {
     #[ORM\Id]
