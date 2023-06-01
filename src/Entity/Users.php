@@ -30,6 +30,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups('OUI')]
     private ?string $email = null;
 
+    #[Groups('OUI')]
     #[ORM\Column]
     private array $roles = [];
 
@@ -96,6 +97,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $reviews;
     public function __construct()
     {
+        $this->roles[] = 'ROLE_USER';
         $this->createdAt = new DateTime('now');
         $this->products = new ArrayCollection();
         $this->reply = new ArrayCollection();
@@ -138,7 +140,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
