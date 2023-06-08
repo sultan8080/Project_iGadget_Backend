@@ -60,9 +60,6 @@ class ProductImages
     #[ORM\Column(length: 255)]
     private ?string $image_name = null;
 
-    #[ORM\Column(type: 'integer')]
-    private ?int $imageSize = null;
-
     #[ORM\ManyToOne(inversedBy: 'productimages')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Products $products = null;
@@ -76,26 +73,16 @@ class ProductImages
     {
         $this->imageFile = $imageFile;
 
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
+        // if (null !== $imageFile) {
+        //     // It is required that at least one field changes if you are using doctrine
+        //     // otherwise the event listeners won't be called and the file is lost
+        //     $this->updatedAt = new \DateTimeImmutable();
+        // }
     }
 
     public function getImageFile(): ?File
     {
         return $this->imageFile;
-    }
-
-    public function setImageSize(?int $imageSize): void
-    {
-        $this->imageSize = $imageSize;
-    }
-
-    public function getImageSize(): ?int
-    {
-        return $this->imageSize;
     }
 
     public function getImageName(): ?string

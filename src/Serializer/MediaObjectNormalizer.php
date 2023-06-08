@@ -2,7 +2,7 @@
 
 namespace App\Serializer;
 
-use App\Entity\MediaObject;
+use App\Entity\ProductImages;
 use Symfony\Component\Serializer\Normalizer\ContextAwareNormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
@@ -33,6 +33,6 @@ final class MediaObjectNormalizer implements ContextAwareNormalizerInterface, No
             return false;
         }
 
-        return $data instanceof MediaObject;
+        return $data instanceof ProductImages;
     }
 }
