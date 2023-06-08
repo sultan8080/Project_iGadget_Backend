@@ -54,7 +54,7 @@ class ProductImages
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping: 'post_thumbnail', fileNameProperty: 'image_name', size: 'imageSize')]
+    #[Vich\UploadableField(mapping: 'post_thumbnail', fileNameProperty: 'image_name')]
     private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
