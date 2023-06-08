@@ -102,7 +102,7 @@ class ProductImages
         return $this->products;
     }
 
-    public function setProducts(?Products $products): self
+    public function setProducts(?Products $products)
     {
         $this->products = $products;
 
