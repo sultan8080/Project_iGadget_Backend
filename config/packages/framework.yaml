@@ -1,7 +1,7 @@
 # see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
-    form:
-        enctype: 'multipart/form-data'
+    # form:
+    #     encrypte: 'multipart/form-data'
 
     secret: '%env(APP_SECRET)%'
     #csrf_protection: true

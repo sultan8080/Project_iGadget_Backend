@@ -17,7 +17,36 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ProductImagesRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['media_object:read']], 
+    types: ['https://schema.org/MediaObject'],
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(
+            controller: CreateMediaObjectAction::class, 
+            deserialize: false, 
+            validationContext: ['groups' => ['Default', 'media_object_create']], 
+            openapi: new Model\Operation(
+                requestBody: new Model\RequestBody(
+                    content: new \ArrayObject([
+                        'multipart/form-data' => [
+                            'schema' => [
+                                'type' => 'object', 
+                                'properties' => [
+                                    'file' => [
+                                        'type' => 'string', 
+                                        'format' => 'binary'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ])
+                )
+            )
+        )
+    ]
+)]
 class ProductImages
 {
     #[ORM\Id]
@@ -25,7 +54,7 @@ class ProductImages
     #[ORM\Column]
     private ?int $id = null;
 
-    #[Vich\UploadableField(mapping: 'post_thumbnail', fileNameProperty: 'imageName', size: 'imageSize')]
+    #[Vich\UploadableField(mapping: 'post_thumbnail', fileNameProperty: 'image_name', size: 'imageSize')]
     private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
@@ -68,7 +97,6 @@ class ProductImages
     {
         return $this->imageSize;
     }
-
 
     public function getImageName(): ?string
     {
