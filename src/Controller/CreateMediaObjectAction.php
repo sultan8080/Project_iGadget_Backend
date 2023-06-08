@@ -24,10 +24,9 @@ final class CreateMediaObjectAction extends AbstractController
     public function __invoke(Request $request): ProductImages
     {
         $uploadedFile = $request->files->get('post_thumbnail');
-        
-        $product = $this->em->getRepository(Products::class)->find(2);
-        // dd($product);
-
+        $imageName = $request->get('image_name');
+        $productId = $request->get('productId');
+        $product = $this->em->getRepository(Products::class)->find($productId);
 
         if (!$uploadedFile) {
             throw new BadRequestHttpException('"file" is required');
@@ -35,10 +34,10 @@ final class CreateMediaObjectAction extends AbstractController
 
         $mediaObject = new ProductImages();
         $mediaObject->setImageFile($uploadedFile);
-        $mediaObject->setImageName('gchg');
+        $mediaObject->setImageName($imageName);
         $mediaObject->setProducts($product);
 
-        // dd($mediaObject);
+        dd($mediaObject);
 
         return $mediaObject;
     }

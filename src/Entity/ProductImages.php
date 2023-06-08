@@ -19,7 +19,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: ProductImagesRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['media_object:read']], 
-    types: ['https://schema.org/MediaObject'],
+    types: ['https://schema.org/ProductImages'],
     operations: [
         new Get(),
         new GetCollection(),
