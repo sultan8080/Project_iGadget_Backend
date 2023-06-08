@@ -23,7 +23,7 @@ final class CreateMediaObjectAction extends AbstractController
 
     public function __invoke(Request $request): ProductImages
     {
-        $uploadedFile = $request->files->get('file');
+        $uploadedFile = $request->files->get('post_thumbnail');
         
         $product = $this->em->getRepository(Products::class)->find(2);
         // dd($product);

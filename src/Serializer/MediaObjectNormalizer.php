@@ -22,7 +22,7 @@ final class MediaObjectNormalizer implements ContextAwareNormalizerInterface, No
     {
         $context[self::ALREADY_CALLED] = true;
 
-        $object->contentUrl = $this->storage->resolveUri($object, 'file');
+        $object->contentUrl = $this->storage->resolveUri($object, 'post_thumbnail');
 
         return $this->normalizer->normalize($object, $format, $context);
     }

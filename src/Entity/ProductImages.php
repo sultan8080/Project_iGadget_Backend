@@ -34,7 +34,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                             'schema' => [
                                 'type' => 'object', 
                                 'properties' => [
-                                    'file' => [
+                                    'post_thumbnail' => [
                                         'type' => 'string', 
                                         'format' => 'binary'
                                     ]
