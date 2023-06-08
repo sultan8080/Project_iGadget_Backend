@@ -17,37 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ProductImagesRepository::class)]
-#[ApiOperation(methods: ['GET'])]
-#[ApiResource(
-    normalizationContext: ['groups' => ['media_object:read']], 
-    types: ['https://schema.org/MediaObject'],
-    operations: [
-        new Get(),
-        new GetCollection(),
-        new Post(
-            controller: CreateMediaObjectAction::class, 
-            deserialize: false, 
-            validationContext: ['groups' => ['Default', 'media_object_create']], 
-            openapi: new Model\Operation(
-                requestBody: new Model\RequestBody(
-                    content: new \ArrayObject([
-                        'multipart/form-data' => [
-                            'schema' => [
-                                'type' => 'object', 
-                                'properties' => [
-                                    'file' => [
-                                        'type' => 'string', 
-                                        'format' => 'binary'
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ])
-                )
-            )
-        )
-    ]
-)]
+#[ApiResource]
 class ProductImages
 {
     #[ORM\Id]
@@ -55,20 +25,14 @@ class ProductImages
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Vich\UploadableField(mapping: 'post_thumbnail', fileNameProperty: 'imageName', size: 'imageSize')]
+    private ?File $imageFile = null;
+
     #[ORM\Column(length: 255)]
     private ?string $image_name = null;
 
-    #[ApiProperty(types: ['https://schema.org/contentUrl'])]
-    #[Groups(['media_object:read'])]
-    public ?string $contentUrl = null;
-
-    #[Vich\UploadableField(mapping: "media_object", fileNameProperty: "filePath")]
-    #[Assert\NotNull(groups: ['media_object_create'])]
-    public ?File $file = null;
-
-    #[ORM\Column(nullable: true)] 
-    public ?string $filePath = null;
-
+    #[ORM\Column(type: 'integer')]
+    private ?int $imageSize = null;
 
     #[ORM\ManyToOne(inversedBy: 'productimages')]
     #[ORM\JoinColumn(nullable: false)]
@@ -78,6 +42,33 @@ class ProductImages
     {
         return $this->id;
     }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageSize(?int $imageSize): void
+    {
+        $this->imageSize = $imageSize;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+
 
     public function getImageName(): ?string
     {
