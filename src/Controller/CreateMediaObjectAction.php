@@ -37,7 +37,7 @@ final class CreateMediaObjectAction extends AbstractController
         $mediaObject->setImageName($imageName);
         $mediaObject->setProducts($product);
 
-        dd($mediaObject);
+        // dd($mediaObject);
 
         return $mediaObject;
     }
