@@ -33,12 +33,12 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
                         'multipart/form-data' => [
                             'schema' => [
                                 'type' => 'object', 
-                                // 'properties' => [
-                                    // 'post_thumbnail' => [
-                                    //     'type' => 'string', 
-                                    //     'format' => 'binary'
-                                    // ]
-                                // ]
+                                'properties' => [
+                                    'post_thumbnail' => [
+                                        'type' => 'string', 
+                                        'format' => 'binary'
+                                    ]
+                                ]
                             ]
                         ]
                     ])
