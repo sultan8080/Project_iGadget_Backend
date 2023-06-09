@@ -37,11 +37,6 @@ final class CreateMediaObjectAction extends AbstractController
         $mediaObject->setImageName($imageName);
         $mediaObject->setProducts($product);
 
-        // Ajouter un message pour préciser le bon enregistrement d'un produit
-        $message = 'Le produit a été enregistré avec succès !';
-        $this->addFlash('success', $message);
-
-
         return $mediaObject;
     }
 }
