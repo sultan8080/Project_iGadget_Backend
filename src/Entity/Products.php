@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
@@ -62,7 +63,8 @@ class Products
     #[ORM\ManyToMany(targetEntity: ProductTags::class, inversedBy: 'products')]
     private Collection $producttags;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true, fetch:'EAGER')]
+    #[Link(toProperty: 'products')]
     private Collection $productimages;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -218,6 +220,7 @@ class Products
      */
     public function getProductimages(): Collection
     {
+        // dd($this->productimages);
         return $this->productimages;
     }
 

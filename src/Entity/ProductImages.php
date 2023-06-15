@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
@@ -46,6 +47,13 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
             )
         )
     ]
+)]
+#[ApiResource(
+    uriTemplate: '/products/{id}/productimages',
+    uriVariables: [
+        'id' => new Link(fromClass: Products::class, toProperty: 'products'),
+    ],
+    operations: [ new GetCollection() ]
 )]
 class ProductImages
 {
