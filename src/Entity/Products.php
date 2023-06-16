@@ -71,7 +71,6 @@ class Products
 
     #[Groups(['media_object:read'])]
     #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true, fetch:'EAGER')]
-    // #[Link(toProperty: 'products')]
     private Collection $productimages;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
