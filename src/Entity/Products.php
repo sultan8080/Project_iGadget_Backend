@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter as FilterDateFilter;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -27,6 +28,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
             'name' => 'partial'
         ]
     ),
+    ApiFilter(
+        DateFilter::class,
+        properties: [
+            'createdAt' => FilterDateFilter::EXCLUDE_NULL
+        ]
+    )
 ]
 
 class Products
