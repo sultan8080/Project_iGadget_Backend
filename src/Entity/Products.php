@@ -10,10 +10,11 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 #[
@@ -25,7 +26,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
         properties:[
             'name' => 'partial'
         ]
-    )
+    ),
 ]
 
 class Products
@@ -161,6 +162,7 @@ class Products
         return $this;
     }
 
+    #[Groups(['media_object:read'])]
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
