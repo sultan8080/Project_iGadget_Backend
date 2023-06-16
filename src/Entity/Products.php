@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
@@ -12,11 +13,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 #[
-    ApiResource, 
+    ApiResource(
+        normalizationContext: ['groups' => ['media_object:read']]
+    ), 
     ApiFilter(
         SearchFilter::class, 
         properties:[
@@ -27,20 +30,24 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 class Products
 {
+    #[Groups(['media_object:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column]
     private ?float $price = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
@@ -62,7 +69,9 @@ class Products
     #[ORM\ManyToMany(targetEntity: ProductTags::class, inversedBy: 'products')]
     private Collection $producttags;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true)]
+    #[Groups(['media_object:read'])]
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true, fetch:'EAGER')]
+    // #[Link(toProperty: 'products')]
     private Collection $productimages;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -218,6 +227,7 @@ class Products
      */
     public function getProductimages(): Collection
     {
+        // dd($this->productimages);
         return $this->productimages;
     }
 
