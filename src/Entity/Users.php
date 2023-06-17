@@ -67,8 +67,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups('OUI')]
     private ?string $city = null;
 
-
-
     #[ORM\Column(nullable: true)]
     #[Groups('OUI')]
     private ?\DateTimeImmutable $updatedAt = null;
