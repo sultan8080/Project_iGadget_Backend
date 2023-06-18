@@ -27,21 +27,17 @@ class JWTCreatedListener
      */
     public function onJWTCreated(JWTCreatedEvent $event)
     {
-        $request = $this->requestStack->getCurrentRequest();
+        // $request = $this->requestStack->getCurrentRequest();
 
-        // Retrieve the user entity from the event
+        $payload = $event->getData();
         $user = $event->getUser();
 
         if ($user) {
-            // Retrieve the `isVerified` property from the user entity
             $isVerified = $user->isVerified();
-
-            // Add the `isVerified` property to the payload
             $payload['isVerified'] = $isVerified;
         }
 
         $event->setData($payload);
-
 
         $header = $event->getHeader();
         $header['cty'] = 'JWT';
