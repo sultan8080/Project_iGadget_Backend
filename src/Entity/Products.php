@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Odm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Odm\Filter\OrderFilter;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -10,24 +12,23 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
-#[ORM\Entity(repositoryClass: ProductsRepository::class)]
-#[
-    ApiResource(
-        normalizationContext: ['groups' => ['media_object:read']]
-    ), 
-    ApiFilter(
-        SearchFilter::class, 
-        properties:[
-            'name' => 'partial'
-        ]
-    )
-]
 
+
+#[ORM\Entity(repositoryClass: ProductsRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['media_object:read']],
+    filters: ['offer.date_filter']
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'name' => 'partial'
+    ]
+)]
 class Products
 {
     #[Groups(['media_object:read'])]
@@ -70,8 +71,7 @@ class Products
     private Collection $producttags;
 
     #[Groups(['media_object:read'])]
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true, fetch:'EAGER')]
-    // #[Link(toProperty: 'products')]
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true, fetch: 'EAGER')]
     private Collection $productimages;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -162,6 +162,7 @@ class Products
         return $this;
     }
 
+    #[Groups(['media_object:read'])]
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
