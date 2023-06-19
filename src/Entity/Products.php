@@ -12,14 +12,13 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use ApiPlatform\Metadata\ApiProperty;
 use Symfony\Component\Serializer\Annotation\Groups;
-use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
 
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 #[ApiResource(
-    normalizationContext: ['groups' => ['media_object:read']]
+    normalizationContext: ['groups' => ['media_object:read']],
+    filters: ['offer.date_filter']
 )]
 #[ApiFilter(
     SearchFilter::class,
@@ -27,9 +26,7 @@ use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
         'name' => 'partial'
     ]
 )]
-
 #[ApiFilter(DateFilter::class, properties: ['createdAt'])]
-
 class Products
 {
     #[Groups(['media_object:read'])]
