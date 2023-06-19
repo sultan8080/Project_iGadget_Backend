@@ -51,7 +51,7 @@ security:
         - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/users, roles: PUBLIC_ACCESS, methods: [POST, GET] }
         - { path: ^/api/registration, roles: PUBLIC_ACCESS}
-        - { path: ^/api/verify-email, roles: PUBLIC_ACCESS,  methods: [POST, GET]}
+        - { path: ^/api/verify-email, roles: PUBLIC_ACCESS}
         - { path: ^/api/reset-password/, roles: PUBLIC_ACCESS, methods: [POST, GET]}
         - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
 

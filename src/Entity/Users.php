@@ -95,7 +95,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $reviews;
     public function __construct()
     {
-        $this->roles[] = 'ROLE_USER';
         $this->createdAt = new DateTime('now');
         $this->products = new ArrayCollection();
         $this->reply = new ArrayCollection();
