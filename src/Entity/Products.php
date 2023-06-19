@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Odm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Odm\Filter\OrderFilter;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,6 +17,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 
+
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['media_object:read']],
@@ -26,7 +29,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
         'name' => 'partial'
     ]
 )]
-#[ApiFilter(DateFilter::class, properties: ['createdAt'])]
 class Products
 {
     #[Groups(['media_object:read'])]

@@ -22,10 +22,6 @@ class ProductImagesController extends AbstractController
     public function getProductImages(Products $product): JsonResponse
     {
         $images = $product->getProductImages();
-
-        dd($product);
-        // // dd($images);
-
         // // return $this->json($images);
         return $this->json("yo");
     }
