@@ -47,7 +47,7 @@ class AppFixtures extends Fixture
             $admin->setUserPhoto('Admin-Photo -' . $i . 'jpg');
             $admin->setPhone($faker->phoneNumber());
             $admin->setCity($faker->city());
-            $admin->setIsVerified('1');
+            $admin->setIsVerified(TRUE);
             $manager->persist($admin);
             $listAdmin[] = $admin;
         }
@@ -65,7 +65,7 @@ class AppFixtures extends Fixture
             $user->setUserPhoto('User-Photo -' . $i . 'jpg');
             $user->setPhone($faker->phoneNumber());
             $user->setCity($faker->city());
-            $user->setIsVerified('1');
+            $user->setIsVerified(FALSE);
             $manager->persist($user);
             $listUsers[] = $user;
         }
