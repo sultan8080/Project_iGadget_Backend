@@ -17,7 +17,7 @@ class ProductsController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/api/products/latest', name: 'latest_products', methods: ['GET'])]
+    #[Route('/api/products_latest', name: 'latest_products', methods: ['GET'])]
     public function latestProducts(): JsonResponse
     {
         $latestProducts = $this->em->getRepository(Products::class)->findBy([], ['createdAt' => 'DESC'], 3);
