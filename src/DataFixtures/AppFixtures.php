@@ -103,7 +103,7 @@ class AppFixtures extends Fixture
 
         for ($i = 1; $i < 15; $i++) {
             $productImages = new ProductImages();
-            $productImages->setImageName('image-' . $i . 'jpg');
+            $productImages->setImageName('image-' . $i . '.png');
             $productImages->setProducts($listProducts[array_rand($listProducts)]);
             $manager->persist($productImages);
         }
