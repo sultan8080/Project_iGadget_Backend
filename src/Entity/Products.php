@@ -45,6 +45,7 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column]
     private ?float $price = null;
 
