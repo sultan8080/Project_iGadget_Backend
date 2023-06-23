@@ -9,10 +9,10 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OrdersController extends AbstractController
 {
-    #[Route('/users/{id}/orders', name: 'user_orders', methods: ['GET'])]
+    #[Route('/api/users/{id}/orders', name: 'user_orders', methods: ['GET'])]
     public function getUserOrders(OrdersRepository $ordersRepository, int $id): Response
     {
-        $userOrders = $ordersRepository->findBy(['user' => $id]);
-        return $this->json($userOrders);
+        $usersOrders = $ordersRepository->findBy(['users' => $id]);
+        return $this->json($usersOrders);
     }
 }
