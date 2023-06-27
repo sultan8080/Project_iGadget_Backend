@@ -56,6 +56,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups('OUI')]
     private ?string $codepostal = null;
 
+    #[Groups('OUI')]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $user_photo = null;
 
