@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Order;
+use App\Entity\Orders;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,7 +22,7 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    public function save(Order $entity, bool $flush = false): void
+    public function save(Orders $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +31,7 @@ class OrderRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Order $entity, bool $flush = false): void
+    public function remove(Orders $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +41,7 @@ class OrderRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Order[] Returns an array of Order objects
+//     * @return Orders[] Returns an array of Order objects
 //     */
 //    public function findByExampleField($value): array
 //    {

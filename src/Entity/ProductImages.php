@@ -18,7 +18,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ProductImagesRepository::class)]
-// #[ApiProperty(readlink: false)]
 #[ApiResource(
     normalizationContext: ['groups' => ['media_object:read']], 
     types: ['https://schema.org/ProductImages'],
@@ -49,16 +48,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
         )
     ]
 )]
-// #[ApiResource(
-//     uriTemplate: '/products/{id}/productimages',
-//     uriVariables: [
-//         'id' => new Link(fromClass: Products::class, toProperty: 'products'),
-//     ],
-//     operations: [ new GetCollection() ]
-// )]
 class ProductImages
 {
-    // #[ApiProperty(identifier: false)]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -67,7 +58,6 @@ class ProductImages
     #[Vich\UploadableField(mapping: 'post_thumbnail', fileNameProperty: 'image_name')]
     private ?File $imageFile = null;
 
-    // #[ApiProperty(identifier: true)]
     #[ORM\Column(length: 255)]
     #[Groups(['media_object:read'])]
     private ?string $image_name = null;
