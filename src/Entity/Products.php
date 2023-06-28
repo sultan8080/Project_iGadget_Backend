@@ -45,6 +45,7 @@ class Products
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column]
     private ?float $price = null;
 
@@ -52,9 +53,11 @@ class Products
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $dimension = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column]
     private ?bool $stock = null;
 
