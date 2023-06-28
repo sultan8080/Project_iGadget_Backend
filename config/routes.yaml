@@ -7,12 +7,3 @@ controllers:
 api_login_check:
     path: /api/login_check
 
-get_product_images:
-    path: '/api/products/{id}/productimages'
-    controller: 'App\Controller\ProductImagesController::getProductImages'
-    methods: GET
-
-api_new_products:
-    path: '/api/new-products'
-    controller: 'App\Controller\NewProductController::getNewProducts'
-    methods: GET
