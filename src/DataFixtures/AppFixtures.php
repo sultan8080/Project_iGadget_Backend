@@ -44,7 +44,7 @@ class AppFixtures extends Fixture
             $admin->setPassword($this->userPasswordHasher->hashPassword($admin, '123456'));
             $admin->setAddress($faker->streetAddress());
             $admin->setCodepostal($faker->postcode());
-            $admin->setUserPhoto('Admin-Photo -' . $i . 'jpg');
+            $admin->setUserPhoto('Admin-Photo-' . $i . '.jpg');
             $admin->setPhone($faker->phoneNumber());
             $admin->setCity($faker->city());
             $admin->setIsVerified(TRUE);
@@ -62,7 +62,7 @@ class AppFixtures extends Fixture
             $user->setPassword($this->userPasswordHasher->hashPassword($user, 'password'));
             $user->setAddress($faker->streetAddress());
             $user->setCodepostal($faker->postcode());
-            $user->setUserPhoto('User-Photo -' . $i . 'jpg');
+            $user->setUserPhoto('User-Photo -' . $i . '.jpg');
             $user->setPhone($faker->phoneNumber());
             $user->setCity($faker->city());
             $user->setIsVerified(FALSE);

@@ -34,7 +34,9 @@ class JWTCreatedListener
 
         if ($user) {
             $isVerified = $user->isVerified();
+            $userId = $user->getId();
             $payload['isVerified'] = $isVerified;
+            $payload['userId'] = $userId;
         }
 
         $event->setData($payload);
