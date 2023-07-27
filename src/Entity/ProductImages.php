@@ -2,12 +2,52 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductImagesRepository;
-use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Link;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\OpenApi\Model;
+use App\Controller\CreateMediaObjectAction;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ProductImagesRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['media_object:read']], 
+    types: ['https://schema.org/ProductImages'],
+    operations: [
+        new Get(),
+        new GetCollection(),
+        new Post(
+            controller: CreateMediaObjectAction::class, 
+            deserialize: false, 
+            validationContext: ['groups' => ['Default', 'media_object_create']], 
+            openapi: new Model\Operation(
+                requestBody: new Model\RequestBody(
+                    content: new \ArrayObject([
+                        'multipart/form-data' => [
+                            'schema' => [
+                                'type' => 'object', 
+                                'properties' => [
+                                    'post_thumbnail' => [
+                                        'type' => 'string', 
+                                        'format' => 'binary'
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ])
+                )
+            )
+        )
+    ]
+)]
 class ProductImages
 {
     #[ORM\Id]
@@ -15,7 +55,11 @@ class ProductImages
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Vich\UploadableField(mapping: 'post_thumbnail', fileNameProperty: 'image_name')]
+    private ?File $imageFile = null;
+
     #[ORM\Column(length: 255)]
+    #[Groups(['media_object:read'])]
     private ?string $image_name = null;
 
     #[ORM\ManyToOne(inversedBy: 'productimages')]
@@ -25,6 +69,17 @@ class ProductImages
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
     }
 
     public function getImageName(): ?string
@@ -44,7 +99,7 @@ class ProductImages
         return $this->products;
     }
 
-    public function setProducts(?Products $products): self
+    public function setProducts(?Products $products)
     {
         $this->products = $products;
 

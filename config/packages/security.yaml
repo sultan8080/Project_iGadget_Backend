@@ -48,11 +48,20 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
-        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
-        - { path: ^/api/users, roles: PUBLIC_ACCESS, methods: [POST] }
+        - { path: ^/api/login_check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api/users, roles: PUBLIC_ACCESS, methods: [POST, GET, PUT] }
+        # - { path: ^/api/products, roles: PUBLIC_ACCESS, methods: [POST, GET, PUT] }
+        # - { path: ^/api/categories, roles: PUBLIC_ACCESS, methods: [POST, GET, PUT] }
+        - { path: ^/api/registration, roles: PUBLIC_ACCESS}
+        - { path: ^/api/verify-email, roles: PUBLIC_ACCESS}
+        - { path: ^/api/reset-password/, roles: PUBLIC_ACCESS, methods: [POST, GET]}
+        - { path: ^/api/categories, roles: PUBLIC_ACCESS }
+        - { path: ^/api/products_latest, roles: PUBLIC_ACCESS }
+        - { path: ^/api/productimages, roles: PUBLIC_ACCESS }
+        - { path: ^/api/products, roles: PUBLIC_ACCESS }
+        - { path: ^/api/search, roles: PUBLIC_ACCESS }
         - { path: ^/api/, roles: IS_AUTHENTICATED_FULLY }
-
-       
+     
 
 when@test:
     security:

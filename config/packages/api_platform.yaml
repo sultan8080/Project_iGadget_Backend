@@ -1,6 +1,12 @@
 api_platform:
+    formats:
+        json: ['application/json']
+        html: ['text/html']
+        multipart: ['multipart/form-data']
     swagger:
          api_keys:
              JWT:
                 name: Authorization
                 type: header
+    mapping:
+        paths: ['%kernel.project_dir%/src/Entity']

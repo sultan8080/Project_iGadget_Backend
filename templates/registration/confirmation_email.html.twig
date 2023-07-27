@@ -1,13 +1,17 @@
 <h1>Email Confirmation</h1>
 
 <p>
-    Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant: <br><br>
-    <a href="{{ signedUrl|raw }}">Confirmer mon e-mail</a>.
-    Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+	Veuillez confirmer votre adresse e-mail en cliquant sur le lien suivant:
+	<br><br>
+	<a href="{{ signedUrl|raw }}">Confirmer mon e-mail</a>.
+		    Ce lien expirera dans
+	{{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
 </p>
 
 <p>
-    Cheers! <br>
-    Cordialement, <br>
-    L'équipe iGadget
+	Cheers!
+	<br>
+	Cordialement
 </p>
+
+<h4>L'équipe iGadget</h4>

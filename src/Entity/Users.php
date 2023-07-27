@@ -24,6 +24,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('OUI')]
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
@@ -55,8 +56,9 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Groups('OUI')]
     private ?string $codepostal = null;
-
+    
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('OUI')]
     private ?string $user_photo = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -66,8 +68,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     #[Groups('OUI')]
     private ?string $city = null;
-
-
 
     #[ORM\Column(nullable: true)]
     #[Groups('OUI')]
@@ -97,7 +97,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $reviews;
     public function __construct()
     {
-        $this->roles[] = 'ROLE_USER';
         $this->createdAt = new DateTime('now');
         $this->products = new ArrayCollection();
         $this->reply = new ArrayCollection();

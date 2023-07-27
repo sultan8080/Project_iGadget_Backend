@@ -28,7 +28,7 @@ class Orders
     #[ORM\ManyToOne(inversedBy: 'orders')]
     #[ORM\JoinColumn(nullable: false)]
     private ?OrderStatus $orderStatus = null;
-
+    
     #[ORM\OneToMany(mappedBy: 'orders', targetEntity: OrderDetails::class, orphanRemoval: true)]
     private Collection $orderDetails;
 

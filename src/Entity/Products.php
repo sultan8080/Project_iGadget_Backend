@@ -2,51 +2,62 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Odm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Odm\Filter\OrderFilter;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\ApiResource;
 use App\Repository\ProductsRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 
 #[ORM\Entity(repositoryClass: ProductsRepository::class)]
-#[
-    ApiResource, 
-    ApiFilter(
-        SearchFilter::class, 
-        properties:[
-            'name' => 'partial'
-        ]
-    )
-]
-
+#[ApiResource(
+    normalizationContext: ['groups' => ['media_object:read']],
+    filters: ['offer.date_filter']
+)]
+#[ApiFilter(
+    SearchFilter::class,
+    properties: [
+        'name' => 'partial'
+    ]
+)]
 class Products
 {
+    #[Groups(['media_object:read'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column]
     private ?float $price = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $dimension = null;
 
+    #[Groups(['media_object:read'])]
     #[ORM\Column]
     private ?bool $stock = null;
 
@@ -62,7 +73,8 @@ class Products
     #[ORM\ManyToMany(targetEntity: ProductTags::class, inversedBy: 'products')]
     private Collection $producttags;
 
-    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true)]
+    #[Groups(['media_object:read'])]
+    #[ORM\OneToMany(mappedBy: 'products', targetEntity: ProductImages::class, orphanRemoval: true, fetch: 'EAGER')]
     private Collection $productimages;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
@@ -153,6 +165,7 @@ class Products
         return $this;
     }
 
+    #[Groups(['media_object:read'])]
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
@@ -218,6 +231,7 @@ class Products
      */
     public function getProductimages(): Collection
     {
+        // dd($this->productimages);
         return $this->productimages;
     }
 

@@ -1,14 +1,19 @@
-<h1>Hi!</h1>
+<h1>Bonjour !</h1>
+
 
 <p>Pour réinitialiser votre mot de passe, veuillez visiter le lien suivant</p>
 
-<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+{# <a href="{{ path('api_reset_password', { token: resetToken.token }) }}">Reset Password</a> #}
 
+<a href="http://localhost:5173/reset-password/{{ resetToken.token }}">
+	<strong>
+		Réinitialisez votre mot de passe</strong>
+</a>
+
+{# <a href="{{ url('api_reset_password', {token: resetToken.token}) }}">{{ url('api_reset_password', {token: resetToken.token}) }}</a> #}
 <p>Ce lien expirera dans{{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p>
 
 <p>
-
 	Cordialement,
-	<br>
-	L'équipe iGadget
 </p>
+<h4>L'équipe iGadget </h4>
