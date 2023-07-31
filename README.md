@@ -1,4 +1,4 @@
-# PROJET ECOMMERCE : iGadgets (Frontend)
+# Projet Ecommerce : iGadget (Backend)
 Il s’agit de créer une application classique type E-Commerce, avec des listes de
 produits, détails produit, gestion de panier et validation de celui-ci. Avec
 également une gestion simple du compte utilisateur.
